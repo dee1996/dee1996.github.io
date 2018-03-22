@@ -306,37 +306,32 @@
             <p>摘要:</p>
 <pre><code>- 经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找
 </code></pre><p>正文:</p>
-<pre><code>- 首先了解链表的结构：
+<pre><code>- 首先了解链表的结构:
 -----     ------------        ------------
 </code></pre><p>   |head|—&gt;|data|index|–…–&gt;|data|null|<br>    —–     ————        ————<br>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。</p>
-<p>首先需要写一个链表的实体类，代码如下：<br>public class Node {<br>    public Node next; // 代表下一个节点<br>    public int data; //储存数据<br>    public Node(int data) {<br>        this.data = data;<br>    }<br>}</p>
-<p>对链表的一些操作：<br>public class LeetCode2 {<br>    private Node head;<br>    public static void main(String[] args) {<br>        LeetCode2 code = new LeetCode2();<br>        code.addNode(2);<br>        code.addNode(3);<br>        code.addNode(4);<br>        code.addNode(5);<br>        code.printNode();<br>    }<br>    /**</p>
-<pre><code> * 添加节点
- * @param data
- */
-public void addNode(int data) {
-    Node newNode = new Node(data);
-    if(head == null) {
-        head = newNode;
-        return;
-    }
-    Node temp = head;
-    while(temp.next != null) {
-        temp = temp.next;
-    }
-    // 将数据添加到最后一个节点
-    temp.next = newNode;
-}
-/**
- * 打印链表最后输出2345
- */
-public void printNode() {
-    while(head != null) {
-        System.out.print(head.data);
-        head = head.next;
-    }
-}
-</code></pre><p>}<br>这里我有一个疑问，按理head节点应该是不存放数据的，但是我目前的这种写法，head节点是第一个节点，也就是说没有head节点，<br>直接从第一个有数据的节点开始了，这里先留着，日后了解其中原由再修改。</p>
+<ul>
+<li><p>首先需要写一个链表的实体类，代码如下:<br>public class Node {<br>  public Node next; // 代表下一个节点<br>  public Object data; //储存数据<br>  public Node() {<br>  }<br>  public Node(Object data) {</p>
+<pre><code>this.data = data;
+</code></pre><p>  }<br>}</p>
+</li>
+<li><p>对链表的一些操作：<br>public class LeetCode2 {<br>  private Node head = new Node(); // 实例化一个Node为head节点<br>  public static void main(String[] args) {</p>
+<pre><code>LeetCode2 code = new LeetCode2();
+code.addNode(2);
+code.addNode(3);
+code.addNode(4);
+code.addNode(5);
+code.printNode();
+</code></pre><p>  }<br>  /**</p>
+<ul>
+<li>添加节点</li>
+<li>@param data<br>*/<br>public void addNode(int data) {<br> Node newNode = new Node(data);<br> Node temp = head;<br> while(temp.next != null) {<pre><code>temp = temp.next;
+</code></pre> }<br> // 将数据添加到最后一个节点<br> temp.next = newNode;<br>}<br>/**</li>
+<li>打印链表最后输出2345<br>*/<br>public void printNode() {<br> while(head.next != null) {<pre><code>System.out.print(head.next.data);
+head = head.next;
+</code></pre> }<br>}<br>}</li>
+</ul>
+</li>
+</ul>
 
           
         
