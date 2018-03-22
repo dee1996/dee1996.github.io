@@ -303,10 +303,10 @@
       
         
           
-            <p>摘要:<br>经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找<br>正文:<br>首先了解链表的结构:</p>
+            <p>摘要:<br>经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找<br>正文:<br>    首先了解链表的结构:</p>
 <p>   |head|—&gt;|data|index|–…–&gt;|data|null|</p>
-<p>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。</p>
-<ul>
+<pre><code>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。
+</code></pre><ul>
 <li><p>首先需要写一个链表的实体类，代码如下:</p>
 <pre><code>public class Node {
 public Node next; // 代表下一个节点
@@ -473,8 +473,27 @@ public void printNode() {
       
         
           
-            <p>摘要:<br>    LeetCode第一题:给定一个数组及目标值，查找出这个数组中两个数相加之和等于目标值的下标<br>正文:<br>        Example:<br>        Given nums = [2, 7, 11, 15], target = 9,<br>        Because nums[0] + nums[1] = 2 + 7 = 9,<br>        return [0, 1].</p>
-<p>分析:<br>    遍历数组，找到两个值，如果找到这两个值就返回，找不到则返回null<br>代码:<br>        public static int[] twoSum(int[] arr,int num) {<br>            for(int i = 0;i &lt; arr.length - 1;i++) {<br>                for(int j = i + 1;j &lt; arr.length;j++) {<br>                    if(arr[i] + arr[j] == num) {<br>                        return new int[] {i,j};<br>                    }<br>                }<br>            }<br>            return null;<br>        }</p>
+            <p>摘要:<br>    LeetCode第一题:给定一个数组及目标值，查找出这个数组中两个数相加之和等于目标值的下标<br>正文:</p>
+<ul>
+<li><p>Example:</p>
+<pre><code>Given nums = [2, 7, 11, 15], target = 9,
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+</code></pre></li>
+<li><p>分析:<br>  遍历数组，找到两个值，如果找到这两个值就返回，找不到则返回null</p>
+</li>
+<li>代码:<pre><code>public static int[] twoSum(int[] arr,int num) {
+    for(int i = 0;i &lt; arr.length - 1;i++) {
+        for(int j = i + 1;j &lt; arr.length;j++) {
+            if(arr[i] + arr[j] == num) {
+                return new int[] {i,j};
+            }
+        }
+    }
+    return null;
+}
+</code></pre></li>
+</ul>
 
           
         
