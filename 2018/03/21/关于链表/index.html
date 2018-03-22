@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="摘要: - 经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找 正文: - 首先了解链表的结构: -----     ------------        ------------    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null|    —–     ————        ————有一个hea">
+<meta name="description" content="摘要:经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找正文:首先了解链表的结构:    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null| 有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。  首先需要写一个链表">
 <meta name="keywords" content="关于链表的一些操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于链表">
 <meta property="og:url" content="https://dee1996.github.io/2018/03/21/关于链表/index.html">
 <meta property="og:site_name" content="Dee Liu">
-<meta property="og:description" content="摘要: - 经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找 正文: - 首先了解链表的结构: -----     ------------        ------------    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null|    —–     ————        ————有一个hea">
+<meta property="og:description" content="摘要:经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找正文:首先了解链表的结构:    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null| 有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。  首先需要写一个链表">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-22T11:56:42.972Z">
+<meta property="og:updated_time" content="2018-03-22T12:01:43.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于链表">
-<meta name="twitter:description" content="摘要: - 经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找 正文: - 首先了解链表的结构: -----     ------------        ------------    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null|    —–     ————        ————有一个hea">
+<meta name="twitter:description" content="摘要:经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找正文:首先了解链表的结构:    |head|—&amp;gt;|data|index|–…–&amp;gt;|data|null| 有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。  首先需要写一个链表">
 
 
 
@@ -300,12 +300,9 @@
       
 
       
-        <p>摘要:</p>
-<pre><code>- 经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找
-</code></pre><p>正文:</p>
-<pre><code>- 首先了解链表的结构:
------     ------------        ------------
-</code></pre><p>   |head|—&gt;|data|index|–…–&gt;|data|null|<br>    —–     ————        ————<br>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。</p>
+        <p>摘要:<br>经常在leetcode上看到链表操作，之前也研究过，但是模模糊糊的没有什么深刻的印象，今天记录一下，方便以后查找<br>正文:<br>首先了解链表的结构:</p>
+<p>   |head|—&gt;|data|index|–…–&gt;|data|null|</p>
+<p>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。</p>
 <ul>
 <li><p>首先需要写一个链表的实体类，代码如下:</p>
 <pre><code>public class Node {
