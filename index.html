@@ -310,27 +310,52 @@
 -----     ------------        ------------
 </code></pre><p>   |head|—&gt;|data|index|–…–&gt;|data|null|<br>    —–     ————        ————<br>有一个head，里面不存储数据，只有指向下一个数据的索引，下一个索引中存储有数据以及再下一个数据的索引，一直到最后一个数据的索引指向null。</p>
 <ul>
-<li><p>首先需要写一个链表的实体类，代码如下:<br>public class Node {<br>  public Node next; // 代表下一个节点<br>  public Object data; //储存数据<br>  public Node() {<br>  }<br>  public Node(Object data) {</p>
-<pre><code>this.data = data;
-</code></pre><p>  }<br>}</p>
-</li>
-<li><p>对链表的一些操作：<br>public class LeetCode2 {<br>  private Node head = new Node(); // 实例化一个Node为head节点<br>  public static void main(String[] args) {</p>
-<pre><code>LeetCode2 code = new LeetCode2();
-code.addNode(2);
-code.addNode(3);
-code.addNode(4);
-code.addNode(5);
-code.printNode();
-</code></pre><p>  }<br>  /**</p>
-<ul>
-<li>添加节点</li>
-<li>@param data<br>*/<br>public void addNode(int data) {<br> Node newNode = new Node(data);<br> Node temp = head;<br> while(temp.next != null) {<pre><code>temp = temp.next;
-</code></pre> }<br> // 将数据添加到最后一个节点<br> temp.next = newNode;<br>}<br>/**</li>
-<li>打印链表最后输出2345<br>*/<br>public void printNode() {<br> while(head.next != null) {<pre><code>System.out.print(head.next.data);
-head = head.next;
-</code></pre> }<br>}<br>}</li>
-</ul>
-</li>
+<li><p>首先需要写一个链表的实体类，代码如下:</p>
+<pre><code>public class Node {
+public Node next; // 代表下一个节点
+public Object data; //储存数据
+public Node() {
+}
+public Node(Object data) {
+    this.data = data;
+}
+}
+</code></pre></li>
+<li><p>对链表的一些操作：</p>
+<pre><code>public class LeetCode2 {
+private Node head = new Node(); // 实例化一个Node为head节点
+public static void main(String[] args) {
+    LeetCode2 code = new LeetCode2();
+    code.addNode(2);
+    code.addNode(3);
+    code.addNode(4);
+    code.addNode(5);
+    code.printNode();
+}
+/**
+* 添加节点
+* @param data
+*/
+public void addNode(int data) {
+    Node newNode = new Node(data);
+    Node temp = head;
+    while(temp.next != null) {
+        temp = temp.next;
+    }
+// 将数据添加到最后一个节点
+    temp.next = newNode;
+}
+/**
+* 打印链表最后输出2345
+*/
+public void printNode() {
+    while(head.next != null) {
+        System.out.print(head.next.data);
+        head = head.next;
+        }
+    }
+}
+</code></pre></li>
 </ul>
 
           
