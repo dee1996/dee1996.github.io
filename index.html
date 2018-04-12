@@ -322,7 +322,7 @@
             &lt;/action&gt;
         &lt;/package&gt;
     &lt;/struts&gt;
-</code></pre><p>action name表示请求方法，class表示该方法请求的类，result name表示返回参数，当返回参数为某个值时，会跳转到这个值对应的jsp页面<br>该类需要继承ActionSupport类，这个类可以是一个POJO类，然后继承ActionSupport类的execute方法，当通过请求上述的action 中name的参数<br>时，会找到这个对应的action，也就是找到这个execute方法，如果需要传值到页面，ActionContext.getContext().put(“book”, book);可以<br>将值传到对应页面。<br>jsp页面:<br>        &lt;%@ taglib prefix=”s” uri=”/struts-tags” %&gt;<br>通过struts标签取值${book.id}<br>整个过程结束<br>项目地址:<a href="https://github.com/dee1996/Servlet" target="_blank" rel="noopener">https://github.com/dee1996/Servlet</a> 目录下 Day20180408_Struts2</p>
+</code></pre><p>action name表示请求方法，class表示该方法请求的类，result name表示返回参数，当返回参数为某个值时，会跳转到这个值对应的jsp页面<br>该类需要继承ActionSupport类，这个类可以是一个POJO类，然后继承ActionSupport类的execute方法，当通过请求上述的action 中name的参数<br>时，会找到这个对应的action，也就是找到这个execute方法，如果需要传值到页面，ActionContext.getContext().put(“book”, book);<br>可以将值传到对应页面。<br>jsp页面:<br>        &lt;%@ taglib prefix=”s” uri=”/struts-tags” %&gt;<br>通过struts标签取值${book.id}<br>整个过程结束<br>项目地址:<a href="https://github.com/dee1996/Servlet" target="_blank" rel="noopener">https://github.com/dee1996/Servlet</a> 目录下 Day20180408_Struts2</p>
 
           
         
