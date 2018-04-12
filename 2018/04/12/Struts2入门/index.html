@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="正文:    Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:                    struts            org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter                            struts">
+<meta name="description" content="正文: - Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:     &amp;lt;filter&amp;gt;         &amp;lt;filter-name&amp;gt;struts&amp;lt;/filter-name&amp;gt;         &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.filter.Struts">
 <meta name="keywords" content="第一个Struts2程序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Struts2入门">
 <meta property="og:url" content="https://dee1996.github.io/2018/04/12/Struts2入门/index.html">
 <meta property="og:site_name" content="Dee Liu">
-<meta property="og:description" content="正文:    Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:                    struts            org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter                            struts">
+<meta property="og:description" content="正文: - Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:     &amp;lt;filter&amp;gt;         &amp;lt;filter-name&amp;gt;struts&amp;lt;/filter-name&amp;gt;         &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.filter.Struts">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-12T13:24:19.630Z">
+<meta property="og:updated_time" content="2018-04-12T13:29:09.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Struts2入门">
-<meta name="twitter:description" content="正文:    Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:                    struts            org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter                            struts">
+<meta name="twitter:description" content="正文: - Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:     &amp;lt;filter&amp;gt;         &amp;lt;filter-name&amp;gt;struts&amp;lt;/filter-name&amp;gt;         &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.filter.Struts">
 
 
 
@@ -300,9 +300,26 @@
       
 
       
-        <p>正文:<br>    Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:<br>        <filter><br>            <filter-name>struts</filter-name><br>            <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class><br>        </filter><br>        <filter-mapping><br>            <filter-name>struts</filter-name><br>        <url-pattern>/*</url-pattern><br>        </filter-mapping><br>所有的请求都经过struts的拦截器<br>在src目录下配置struts.xml:<br>        <struts><br>            <package name="action" extends="struts-default"><br>                <action name="getBook" class="cn.dee.action.BookAction"><br>                    <result name="success">/WEB-INF/list.jsp</result><br>                </action><br>            </package></struts></p>
-<pre><code>&lt;/struts&gt;
-</code></pre><p>action name表示请求方法，class表示该方法请求的类，result name表示返回参数，当返回参数为某个值时，会跳转到这个值对应的jsp页面<br>该类需要继承ActionSupport类，这个类可以是一个POJO类，然后继承ActionSupport类的execute方法，当通过请求上述的action 中name的参数<br>时，会找到这个对应的action，也就是找到这个execute方法，如果需要传值到页面，ActionContext.getContext().put(“book”, book);可以<br>将值传到对应页面。<br>jsp页面:<br>        &lt;%@ taglib prefix=”s” uri=”/struts-tags” %&gt;<br>通过struts标签取值${book.id}<br>整个过程结束<br>项目地址:<a href="https://github.com/dee1996/Servlet目录下Day20180408_Struts2" target="_blank" rel="noopener">https://github.com/dee1996/Servlet目录下Day20180408_Struts2</a></p>
+        <p>正文:</p>
+<pre><code>- Struts2是一个基于MVC设计模式的Web应用框架，首先在web.xml中配置Struts2:
+    &lt;filter&gt;
+        &lt;filter-name&gt;struts&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;struts&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+</code></pre><p>所有的请求都经过struts的拦截器</p>
+<pre><code>- 在src目录下配置struts.xml:
+    &lt;struts&gt;
+        &lt;package name=&quot;action&quot; extends=&quot;struts-default&quot;&gt;
+            &lt;action name=&quot;getBook&quot; class=&quot;cn.dee.action.BookAction&quot;&gt;
+                &lt;result name=&quot;success&quot;&gt;/WEB-INF/list.jsp&lt;/result&gt;
+            &lt;/action&gt;
+        &lt;/package&gt;
+    &lt;/struts&gt;
+</code></pre><p>action name表示请求方法，class表示该方法请求的类，result name表示返回参数，当返回参数为某个值时，会跳转到这个值对应的jsp页面<br>该类需要继承ActionSupport类，这个类可以是一个POJO类，然后继承ActionSupport类的execute方法，当通过请求上述的action 中name的参数<br>时，会找到这个对应的action，也就是找到这个execute方法，如果需要传值到页面，ActionContext.getContext().put(“book”, book);可以<br>将值传到对应页面。<br>jsp页面:<br>        &lt;%@ taglib prefix=”s” uri=”/struts-tags” %&gt;<br>通过struts标签取值${book.id}<br>整个过程结束<br>项目地址:<a href="https://github.com/dee1996/Servlet" target="_blank" rel="noopener">https://github.com/dee1996/Servlet</a> 目录下 Day20180408_Struts2</p>
 
       
     </div>
