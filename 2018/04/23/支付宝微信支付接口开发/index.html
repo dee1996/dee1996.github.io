@@ -393,30 +393,41 @@ public class WxpayController extends BaseController {
     config = WXPayConfigImpl.getInstance();
     wxpay = new WXPay(config);
     }
-</code></pre></li>
+</li>
 </ul>
-<pre><code>    // 简单打印应答
+// 简单打印应答
     public void indexAction() {        
-        String outTradeNo = &quot;tradeprecreate&quot; + System.currentTimeMillis() + (long) (Math.random() * 10000000L);
-        HashMap&lt;String, String&gt; data = new HashMap&lt;String, String&gt;();
-        data.put(&quot;body&quot;, &quot;购买商品&quot;);//商品描述
-        data.put(&quot;out_trade_no&quot;, outTradeNo);//订单号
-        data.put(&quot;device_info&quot;, &quot;&quot;);
-        data.put(&quot;fee_type&quot;, &quot;CNY&quot;);
-        data.put(&quot;total_fee&quot;, String.valueOf(amount)); // 价格
-        data.put(&quot;spbill_create_ip&quot;, getIpAddr()); // IP地址
-        data.put(&quot;notify_url&quot;, &quot;http://xxx/payment/wxnotify&quot;);这里指的是支付成功后通知到的地址，需要是公网地址
-        data.put(&quot;trade_type&quot;, &quot;NATIVE&quot;);
-        data.put(&quot;product_id&quot;, pid);//产品编号
-        data.put(&quot;sign_type&quot;, &quot;MD5&quot;);
+	WeixinPayApiImpl p =  new WeixinPayApiImpl(config.getKey());
+	p.setAppid(config.getAppID());
+	p.setMch_id(config.getMchID());
+	p.setBody("VOD");
+	p.setAttach(attach.toString());
+	p.setOut_trade_no(outTradeNo);
+	p.setFee_type("CNY");
+	p.setTotal_fee(amount);
+	p.setSpbill_create_ip(getIpAddr());
+	p.setNotify_url("http://210.22.114.250:2823/nhuapay/payment/wxwynotify");
+	p.setTrade_type("NATIVE");
+	p.setProduct_id(String.valueOf(pid));
+	p.setNonce_str(getRandomString(32));
+	p.setSign_type("MD5");
+	String xml = "";
+	try {
+		xml = p.getXml("xml");
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	if ("" == xml) {
+		return;
+	}
 
         try {
-        Map&lt;String, String&gt; r = wxpay.unifiedOrder(data);
-        System.out.println(r);
-        String url = r.get(&quot;code_url&quot;);
-        System.out.println(url);
-        // 生成二维码
-        ZxingUtils.getQRCodeImge(url, 256, &quot;d:/qr.png&quot;);
+		InputStream in = HttpClientUtil.sendXMLDataByPost(p.getUrl(),xml).getEntity().getContent();
+		WeixinApiResultImpl wxres = new WeixinApiResultImpl(in);
+		String url = wxres.getCode_url();
+        	// 生成二维码
+        	ZxingUtils.getQRCodeImge(url, 256, &quot;d:/qr.png&quot;);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -480,7 +491,7 @@ public String notify(HttpServletRequest request) {
     }
 }
 /**
- * 支付宝支付成功后.会回调该接口
+ * 微信支付成功后.会回调该接口
  * 
  * @param request
  * @return
