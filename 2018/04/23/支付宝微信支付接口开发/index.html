@@ -381,7 +381,7 @@
 
 }
 </code></pre><ul>
-<li><p>微信:<br>  需要在微信公众平台找的参数：appid<br>  需要在微信商户平台找的参数：商户号，api密钥，以及在微信商户平台点击左侧的「账户设置在微信商户平台点击左侧的「账户设置 - API 安全」，点击「点击下载证书」<br>  注：任何新增账号（包括管理员账户）都无法看到「下载证书」按钮，只有主体账户可以看到「下载证书」按钮。<br>  到<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1下载demo" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1下载demo</a><br>  引入wxpay-sdk-0.0.3.jar包，将demo中的src\main\java\com\github\wxpay\sdk目录下的所有引入以及src\test\java\com\github\wxpay\sdk目录下的WXPayConfigImpl.java和WXPayDomainSimpleImpl.java引入<br>  本地端:</p>
+<li><p>微信:<br>  需要在微信公众平台找的参数：appid<br>  需要在微信商户平台找的参数：商户号，api密钥，以及在微信商户平台点击左侧的「账户设置在微信商户平台点击左侧的「账户设置 - API 安全」，点击「点击下载证书」<br>  注：任何新增账号（包括管理员账户）都无法看到「下载证书」按钮，只有主体账户可以看到「下载证书」按钮。<br>  到<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1</a><br> 下载demo,引入wxpay-sdk-0.0.3.jar包，将demo中的src\main\java\com\github\wxpay\sdk目录下的所有引入以及src\test\java\com\github\wxpay\sdk目录下的WXPayConfigImpl.java和WXPayDomainSimpleImpl.java引入<br>  本地端:</p>
 <pre><code>先修改WXPayConfigImpl.java，将上述需要的参数修改
 public class WxpayController extends BaseController {
     private static Log                  log = LogFactory.getLog(AlipayController.class);
