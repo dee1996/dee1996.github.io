@@ -381,7 +381,7 @@
 
 }
 </code></pre><ul>
-<li><p>微信:<br>  需要在微信公众平台找的参数：appid<br>  需要在微信商户平台找的参数：商户号，api密钥，以及在微信商户平台点击左侧的「账户设置在微信商户平台点击左侧的「账户设置 - API 安全」，点击「点击下载证书」<br>  注：任何新增账号（包括管理员账户）都无法看到「下载证书」按钮，只有主体账户可以看到「下载证书」按钮。<br>  到<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1</a><br> 下载demo,引入wxpay-sdk-0.0.3.jar包，将demo中的src\main\java\com\github\wxpay\sdk目录下的所有引入以及src\test\java\com\github\wxpay\sdk目录下的WXPayConfigImpl.java和WXPayDomainSimpleImpl.java引入<br>  本地端:</p>
+<p>微信:<br>  需要在微信公众平台找的参数：appid<br>  需要在微信商户平台找的参数：商户号，api密钥，以及在微信商户平台点击左侧的「账户设置在微信商户平台点击左侧的「账户设置 - API 安全」，点击「点击下载证书」<br>  注：任何新增账号（包括管理员账户）都无法看到「下载证书」按钮，只有主体账户可以看到「下载证书」按钮。<br>  到<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1</a><br> 下载demo,引入wxpay-sdk-0.0.3.jar包，将demo中的src\main\java\com\github\wxpay\sdk目录下的所有引入以及src\test\java\com\github\wxpay\sdk目录下的WXPayConfigImpl.java和WXPayDomainSimpleImpl.java引入<br>  本地端:</p>
 <pre><code>先修改WXPayConfigImpl.java，将上述需要的参数修改
 public class WxpayController extends BaseController {
     private static Log                  log = LogFactory.getLog(AlipayController.class);
@@ -393,24 +393,21 @@ public class WxpayController extends BaseController {
     config = WXPayConfigImpl.getInstance();
     wxpay = new WXPay(config);
     }
-</li>
-</ul>
-// 简单打印应答
     public void indexAction() {        
 	WeixinPayApiImpl p =  new WeixinPayApiImpl(config.getKey());
 	p.setAppid(config.getAppID());
 	p.setMch_id(config.getMchID());
 	p.setBody("VOD");
 	p.setAttach(attach.toString());
-	p.setOut_trade_no(outTradeNo);
-	p.setFee_type("CNY");
-	p.setTotal_fee(amount);
-	p.setSpbill_create_ip(getIpAddr());
-	p.setNotify_url("http://210.22.114.250:2823/nhuapay/payment/wxwynotify");
+	p.setOut_trade_no(outTradeNo); // 商户订单号
+	p.setFee_type("CNY");  //人民币
+	p.setTotal_fee(amount);//金额
+	p.setSpbill_create_ip(getIpAddr());//订单生成IP
+	p.setNotify_url("http://xxx/xxx");//订单返回公网处理地址
 	p.setTrade_type("NATIVE");
-	p.setProduct_id(String.valueOf(pid));
-	p.setNonce_str(getRandomString(32));
-	p.setSign_type("MD5");
+	p.setProduct_id(String.valueOf(pid));//产品ID
+	p.setNonce_str(getRandomString(32));//随机字符串
+	p.setSign_type("MD5");//MD5签名
 	String xml = "";
 	try {
 		xml = p.getXml("xml");
@@ -431,6 +428,125 @@ public class WxpayController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+}
+	private String getIpAddr() {
+		String ipAddress = "0.0.0.0";
+		ipAddress = getRequest().getRemoteAddr();
+		ipAddress = getRequest().getHeader("x-forwarded-for");
+		if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+			ipAddress = getRequest().getHeader("Proxy-Client-IP");
+		}
+		if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+			ipAddress = getRequest().getHeader("WL-Proxy-Client-IP");
+		}
+		if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+			ipAddress = getRequest().getRemoteAddr();
+			if (ipAddress.equals("127.0.0.1")) {
+				InetAddress inet = null;
+				try {
+					inet = InetAddress.getLocalHost();
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				}
+				ipAddress = inet.getHostAddress();
+			}
+		}
+
+		if (ipAddress != null && ipAddress.length() > 15) {
+			if (ipAddress.indexOf(",") > 0) {
+				ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
+			}
+		}
+		if (ipAddress != null) {
+			String[] content = ipAddress.split(".");
+			if (content != null) {
+				int len = content.length;
+				if (len != 4) {
+					ipAddress = "0.0.0.0";
+				}
+			}
+		}
+		return ipAddress;
+	}
+
+	public static String getRandomString(int length) { 
+		String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+		Random random = new Random();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < length; i++) {
+			int number = random.nextInt(base.length());
+			sb.append(base.charAt(number));
+		}
+		return sb.toString();
+	}
+
+	public String createSign(HashMap<String, String> map, String apiKey) throws Exception {
+		SortedMap<String, String> parame = new TreeMap<String,String>(map);
+		StringBuffer buffer = new StringBuffer();
+		Set<?> set = parame.entrySet();
+		Iterator<?> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<?,?> entry = (Entry<?, ?>) iterator.next();
+			String key = (String) entry.getKey();
+			Object value = (String) entry.getValue();
+			if (null != value && !"".equals(value) && !"sign".equals(key) && !"key".equals(key)) {
+				buffer.append(key + "=" + value + "&");
+			}
+		}
+		buffer.append("key=" + apiKey);
+		String sign = MD5(buffer.toString()).toUpperCase();
+		return sign;
+	}
+
+	public String MD5(String data) throws Exception {
+		java.security.MessageDigest md = MessageDigest.getInstance("MD5");
+		byte[] array = md.digest(data.getBytes("UTF-8"));
+		StringBuilder sb = new StringBuilder();
+		for (byte item : array) {
+			sb.append(Integer.toHexString((item & 0xFF) | 0x100).substring(1, 3));
+		}
+		return sb.toString().toUpperCase();
+	}
+
+	public static String getRequestXML(HashMap<String, String> map){  
+		SortedMap<String, String> parame = new TreeMap<String,String>(map);
+        StringBuffer buffer = new StringBuffer();  
+        buffer.append("<xml>");  
+        Set<Entry<String, String>> set = parame.entrySet();  
+        Iterator<Entry<String, String>> iterator = set.iterator();  
+        while(iterator.hasNext()){  
+        	Entry<?,?> entry = (Entry<?,?>) iterator.next();  
+            String key = (String)entry.getKey();  
+            String value = (String)entry.getValue();  
+            if("sign".equalsIgnoreCase(key)){  
+                buffer.append("<"+key+">"+"<![CDATA["+value+"]]>"+"</"+key+">");  
+            }else{  
+                buffer.append("<"+key+">"+value+"</"+key+">");  
+            }             
+        }  
+        buffer.append("</xml>");  
+        return buffer.toString();  
+    }
+	public static  SortedMap<String, String> xml2Map(String xml) {    
+        Map<String, String> map = new HashMap<String, String>();    
+        try {    
+            InputStream is = new ByteArrayInputStream(xml.getBytes("utf-8"));    	
+    		SAXReader reader = new SAXReader();
+    		Document document = reader.read(is);
+    		Element root = document.getRootElement();
+    		List<Element> elementList = root.elements();
+    		for (Element e : elementList) {
+    			String name = e.getName();
+    			String text = e.getText();
+    			map.put(name, text);
+    		}
+    		SortedMap<String, String> result = new TreeMap<String, String>(map);
+            return result;    
+        } catch (Exception e) {    
+            e.printStackTrace();    
+            return null;    
+        }    
+    } 
 }
 </code></pre><ul>
 <li>公网端:<pre><code>@RestController
