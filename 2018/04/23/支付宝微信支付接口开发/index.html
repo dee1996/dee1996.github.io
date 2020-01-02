@@ -548,8 +548,8 @@ public class WxpayController extends BaseController {
         }    
     } 
 }
-</code></pre><ul>
-<li>公网端:<pre><code>@RestController
+</code></pre>
+公网端:<pre><code>@RestController
 @RequestMapping(&quot;/payment&quot;)
 public class PaymentController {
     // 支付宝重要参数
@@ -558,9 +558,7 @@ public class PaymentController {
     private static String CHARSET = &quot;utf-8&quot;;
     private static String ALIPAY_PUBLIC_KEY = &quot;&quot;;
     private static String SIGN_TYPE=&quot;RSA2&quot;;
-</code></pre></li>
-</ul>
-<pre><code>/**
+/**
 * 支付宝支付成功后.会回调该接口
 * 
 * @param request
